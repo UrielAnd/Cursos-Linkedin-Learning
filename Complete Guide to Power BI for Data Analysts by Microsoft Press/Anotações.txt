@@ -1,0 +1,219 @@
+POWER QUERY -> Sempre deixar o nome das colunas o mais intuitivo possível, remover colunas ou linhas insignificantes ou que não seja necessária ali e configurar os tipos de dados corretos para cada coluna. Lado direito da interface do Power Query mostra as etapas realizadas na base de dado, onde essas bases de dados podem vir de locais diferentes. Lado esquerdo mostra as conexões criadas com a(s) base(s) de dados selecionadas. 
+Funções power query vistas:
+TRIM - Cortar espaços em branco coluna.
+LENGHT - Duração do tamanho das células.
+Criar coluna condicional - gerar colunas através de condições exclusivas de outras colunas.
+Colunas de exemplos da seleção - Cria uma coluna que através de uma coluna modelo e de uma sequência logica aplica para todos.
+Remover Linhas brancas e também a partir do topo.
+Renomear colunas.
+Remover colunas.
+Alterar o tipo de dados de uma coluna.
+Replace de valores - Altera valores de uma coluna com base em uma regra definida EX: todas as células da coluna são 1 então posso dar replace de 1 para 'aceito'.
+Dividir coluna - divide uma coluna com base em um caractere ex: Brasil | Belo Horizonte, o caractere especial seria o | podendo dividir a coluna em duas uma Brasil e outra Belo Horizonte
+Mover colunas de posição.
+Filtrar pelas linhas que se quer o resultado dos dados.
+Renomear fonte de dados.
+lower case, upper case e apenas o começo com a letra maiúscula.
+Eliminar caractere da frente de um delimitador qualquer especificado.
+Merge query / Mesclar consultas - Ideia idêntica ao inner join do sql, faz a junção através de chaveamento em comum.
+Criar colunas novas, mas com base outras 2 colunas selecionadas
+Criar grupo de consultas, como se fosse diretórios 
+
+Exibição de modelo:
+Serve para criar relacionamento entre as tabelas, para isso basta ir em gerenciar relações para criar ou editar relacionamentos.
+Modelo estrela (Star Schema) é uma das abordagens mais comuns para modelagem de dados em sistemas de Business Intelligence, como o Power BI. Ele é amplamente utilizado porque é simples, eficiente e otimizado para consultas analíticas. Vamos entender melhor como ele funciona:
+O modelo estrela organiza os dados em um formato relacional simplificado, no qual:
+Tabela Fato
+Fica no centro do modelo.
+Contém dados transacionais ou métricas numéricas que você deseja analisar, como vendas, lucros, ou quantidade de produtos vendidos.
+Exemplos de colunas: Total de Vendas, Quantidade Vendida, Data da Venda, Chave do Produto, Chave do Cliente.
+Tabelas Dimensão
+Ficam ao redor da tabela fato.
+Contêm dados descritivos ou categóricos que ajudam a descrever e contextualizar os fatos.
+Exemplos de colunas: Nome do Produto, Categoria, País do Cliente, Região, Ano.
+
+POWER BI:
+- No power BI se encontra as ferramentas de exibição de modelo e o power query. Além disso ferramenta de exibição da tabela está integrada a ele onde é possível fazer a categorização de que tipo de informação que a coluna fornece (Mais voltado para localização), alguma dessas categorias são:
+Endereço
+Local
+Cidade
+Município
+Estado ou Província
+CEP
+país
+Continente
+Latitude
+Longitude
+Etc...
+- Outra ferramenta é o formato, mas direcionada a valores númericos. Nela é possivel alterar o simbolo da moeda na coluna.
+Exemplo:
+Geral
+Moeda
+Número decimal
+Número inteiro
+Porcentagem
+Cientffco
+Tipo:
+RS Português (Brasil)
+S Inglês (Estados Unidos)
+- Uma ferramenta também interessante é a de resumo, que defini o calculo de valor agregado que o power bi vai fazer na visualização da dashbord, então sempre alterar o resumo para o que é mais cabivel ou até não resumir caso não aja a necessidade.
+Exemplo:
+Soma
+Média
+Mínimo
+Máximo
+Contagem
+Contagem (Distinta)
+- Outra possibilidade é criar uma coluna de grupo com base em outra coluna, melhorando e dando dados melhores e mais construídos para os dashboards.
+Exemplo disso é a coluna abaixo gerando uma coluna de grupos:
+Sales Territory Country
+United States
+United States
+United States
+United States
+United States
+Canada
+France
+Germany
+Australia
+United Kngdom
+NA
+Sales Territory Country 2
+America do norte
+America do norte
+America do norte
+America do norte
+America do norte
+America do norte
+Europa
+Europa
+Australia
+Europa
+Outro
+
+
+DAX:
+DAX (Data Analysis Expressions) é uma linguagem de fórmula usada no Microsoft Power BI, Excel e Analysis Services para realizar cálculos e criar medidas e colunas calculadas em modelos de dados. É uma combinação de funções, operadores e constantes, projetada para trabalhar com dados relacionais e realizar análises complexas.
+Podemos dizer que uma medida em DAX funciona como uma variável dinâmica, porque seu valor depende do contexto em que é avaliada. Ela não tem um valor fixo, mas sim uma fórmula que é recalculada sempre que o contexto (filtros, categorias, linhas do gráfico, etc.) muda.
+Mas também pode criar medida de variáveis fixas igual o exemplo a abaixo:
+Target = 7000000
+O Dax é utilizado para criar colunas direto no power bi sem precisar ir ao power query.
+Exemplos de códigos DAX para criar coluna:
+Full Name = Customer[First Name] & " " & Customer[Last Name] -> Concatena a coluna First Name e Last Name de customers, além disso muda o nome da coluna criada para Full Name. Não esquecer de informar a tabela de onde está querendo fazer essa junção, no caso a tabela foi a customer. Vale a pena falar que ele pega e faz o calculo encima da linha, então é o first name e o last name da linha 1 depois 2 etc.
+Exemplos de códigos DAX para criar médida:
+Total Sales = SUM(Sales[Line Total Sales])
+É uma tarefa essencial para realizar cálculos dinâmicos que se adaptam ao contexto dos visuais, Basicamente diferente de criar uma coluna nova se cria uma medida, que tem um calculo ali por trás para agregar mais informações ao relatório. No exemplo cria uma medida que soma o total de vendas e gera uma medida chamada Total Sales que não é visível em colunas apenas se for demonstrar no relatorio
+Expressões logicas Exemplos:
+Primary Buyer = AND(Customer[Cars Owned] = 0, Customer[Home Owner] = "No") - No DAX, operadores lógicos como AND são estruturados de maneira diferente em comparação com linguagens de programação baseadas em C. Enquanto em linguagens como C você escreveria uma expressão lógica como condição1 && condição2, no DAX esses operadores são encapsulados em forma de funções. Por exemplo, AND(condição1, condição2) recebe os parâmetros condição1 e condição2, que são expressões lógicas a serem avaliadas. A função retorna TRUE ou FALSE dependendo do resultado da avaliação combinada das condições. 
+No exemplo a função AND verifica se ambas as condições (Customer[Cars Owned] = 0 e Customer[Home Owner] = "No") são verdadeiras. Se forem, o resultado será TRUE; caso contrário, será FALSE.
+Secondary Buyer = OR(Customer[Cars Owned] = 0, Customer[Home Owner] = "No") - Para o OR a mesma coisa.
+Pode se usar também o || ou o && entre as condições igual na programação convencional.
+No DAX, a função IF é usada para avaliar uma condição e retornar diferentes valores com base no resultado dessa avaliação. Sua estrutura segue o formato:
+IF(condição, valor_se_verdadeiro, valor_se_falso)
+No exemplo dado:
+Color Category = IF('Product'[Color] IN {"Black", "Blue", "Red"}, "Darker", "Lighter")
+A função verifica se o valor da coluna 'Product'[Color] está presente no conjunto de valores {"Black", "Blue", "Red"}. O operador IN realiza essa verificação.
+Se a condição for verdadeira, ou seja, se a cor da linha atual estiver no conjunto definido, o valor retornado será "Darker".
+Caso contrário, será "Lighter".
+Dessa forma, a nova coluna calculada Color Category atribuirá "Darker" ou "Lighter" a cada linha, dependendo da cor correspondente.
+
+O código DAX fornecido calcula o custo de um produto com base na quantidade de vendas e no custo padrão do produto. Vamos quebrá-lo para explicar cada parte:
+Coluna Line Product Cost = Sales[Order Quantity] * RELATED('Product'[Standard Cost])
+RELATED('Product'[Standard Cost]): A função RELATED é usada para buscar valores de uma tabela relacionada. Neste caso, ela recupera o valor de Standard Cost da tabela Product, que armazena o custo padrão de cada produto. A função RELATED faz isso por meio de um relacionamento entre a tabela Sales e a tabela Product (normalmente, com base no identificador do produto, como ProductID).
+O código pega cada ocorrência da chave de ProductKey que relaciona com a tabela sales e calcula o seu custo.
+Line Margin = Sales[Line Total Sales] - Sales[Coluna Line Product Cost] - Apenas faz a diferença das 2 entre 2 colunas, também com a ocorrência da chave.
+Line Margin % = DIVIDE(Sales[Line Margin], Sales[Line Total Sales], 0) - Faz a divisão para calcular a porcentagem, o 0 é o valor padrão em caso de erros
+
+Total Margin % = DIVIDE([Total Margin], [Total Sales], 0) - Para operações envolvendo medidas, não precisa colocar o nome da tabela acompanhando
+
+Total Sales SUMX = SUMX(Sales, (Sales[Unit Price] * Sales[Order Quantity])) - A função SUMX no DAX é usada para realizar cálculos linha por linha em uma tabela e, em seguida, somar os resultados desses cálculos. Em outras palavras, ela permite criar uma expressão calculada para cada linha de uma tabela e, por fim, somar os valores resultantes dessas expressões.
+Tabela: Sales
+A função está iterando linha por linha na tabela Sales.
+Expressão: Sales[Unit Price] * Sales[Order Quantity]
+Para cada linha da tabela Sales, a função calcula o produto entre o preço unitário (Unit Price) e a quantidade pedida (Order Quantity).
+Resultado:
+Após calcular o valor para cada linha (preço total da linha), o SUMX soma todos esses valores, resultando no total das vendas.
+SUM: Soma os valores de uma única coluna.
+SUMX: Permite calcular uma expressão linha por linha e depois somar o resultado.
+
+Count of Sales Orders Line Items = COUNTROWS(Sales) - A função COUNTROWS retorna o número total de linhas presentes na tabela especificada. Claro que se aplicada junto a outro critério na visualização ela pode contar as linhas onde esses critérios são presentes
+Count of Sales Orders = DISTINCTCOUNT(Sales[Sales Order Number]) - conta o número de valores únicos (distintos) na coluna Sales[Sales Order Number]. 
+
+Count of Sales Orders Line Items GT 50 = COUNTROWS(FILTER(Sales, Sales[Line Total Sales] > 50)) - calcula o número de linhas na tabela Sales onde a coluna Sales[Line Total Sales] tem valores maiores que 50. A função FILTER cria uma tabela virtual que contém apenas as linhas da tabela Sales que atendem à condição Sales[Line Total Sales] > 50.
+No caso, ele verifica cada linha da tabela Sales e inclui na tabela resultante apenas aquelas onde o valor na coluna Line Total Sales é maior que 50. A função COUNTROWS conta o número de linhas na tabela gerada pela função FILTER.
+Ou seja, ela conta as linhas da tabela Sales que satisfazem a condição Sales[Line Total Sales] > 50.
+
+Order Date = CALENDAR(Min(Sales[Order Date]), Max (Sales[Order Date])) - Cria uma coluna de calendário, que tem como inicio a data mais antiga / Min até a mais atual / Max.
+Order Date Year = FORMAT('Order Date'[Order Date], "YYYY") - Cria outra coluna Formatando a Order Date apenas com o ano que precisa.
+Order Date Month = FORMAT('Order Date'[Order Date], "MMM") - Mês
+Order Date Day = FORMAT('Order Date'[Order Date], "DDD") - dia
+
+QTD Sales = TOTALQTD([Total Sales], 'Order Date'[Order Date]) - cria uma medida chamada QTD Sales que calcula as vendas acumuladas no trimestre até a data atual, com base na coluna 'Order Date'[Order Date].
+TOTALQTD:
+Essa função retorna o valor acumulado de uma medida ou expressão dentro do trimestre atual até a data especificada.
+Ela considera a estrutura do calendário definida na tabela de datas ('Order Date'[Order Date]).
+[Total Sales]:
+Essa é a medida que contém o valor total das vendas. O TOTALQTD acumulará os valores dessa medida.
+'Order Date'[Order Date]:
+Essa é a coluna de datas usada como referência para identificar os trimestres e determinar as datas para acumulação. Geralmente, ela vem de uma tabela de calendário.
+YTD Sales = TOTALYTD([Total Sales], 'Order Date'[Order Date]) - cria uma medida chamada YTD Sales, que calcula o valor acumulado das vendas no ano até a data atual, com base na coluna 'Order Date'[Order Date]. 
+TOTALYTD:
+Essa função retorna o valor acumulado de uma medida ou expressão no ano atual até a data especificada.
+Ela considera o calendário definido na tabela de datas (nesse caso, 'Order Date'[Order Date]).
+[Total Sales]:
+A medida que contém o valor total das vendas. O TOTALYTD acumulará os valores dessa medida.
+'Order Date'[Order Date]:
+A coluna de datas usada como referência para determinar os limites do ano e calcular o acumulado até a data especificada.
+
+Nota DAX: Observa-se que a coluna sempre vem em primeiro igual -> nome coluna = Expressão 
+
+Criar tabela de datas:
+No Power BI Desktop, você pode especificar a tabela que deseja que seu modelo use como sua tabela de datas e posteriormente criar elementos visuais relacionados a datas, tabelas, medidas rápidas e assim por diante usando dados de data dessa tabela. Quando você especifica sua própria tabela de datas, controla as hierarquias de datas criadas em seu modelo e usa-as em medidas rápidas e outras operações que usam a tabela de datas do seu modelo.
+Contém valores exclusivos.
+Não contém valores nulos.
+Contém valores de datas contíguas (do início ao fim).
+Se for um tipo de dados Data/hora, ele terá o mesmo carimbo de data e hora em cada valor.
+Quando você especifica sua própria tabela de datas, o Power BI Desktop executa as validações a seguir dessa coluna e de seus dados, para garantir que os dados:
+- Contém valores exclusivos.
+- Não contém valores nulos.
+- Contém valores de datas contíguas (do início ao fim).
+- Se for um tipo de dados Data/hora, ele terá o mesmo carimbo de data e hora em cada valor.
+
+Visualização relatório:
+Filtros podem ser aplicados na pagina atual, em todas as paginas ou apenas em um elemento da pagina.
+Ligar Rotulo de dados no gráfico de coluna fica mais bonito, ajustar o eixo x, para que fique mais evidente o nível de dados. retirar títulos dos eixos, dá para definir o n° de casas também do rotulo de dados para ficar do jeito que achar melhor. É possível alterar a ordem de visualização do gráfico, so clicar nos 3 pontos. Também dá para adicionar dados como dicas, onde quando o mouse passar por cima ela aparece na coluna da tabela etc. Para a visualização de KPI é necessário colocar um valor target/comparativo como destino no power bi. Pode se adicionar filtros interativos na visualização.
+Tela de fundo é a tela de visualização
+Papel de parede é a tela além da tela de visualização.
+Também é possível criar dicas de ferramentas personalizadas, para isso tem que se criar uma outra pagina e permiti-la para uso de dica de ferramenta, depois disso basta criar uma visualização que se quer como dica e importa-la para a visualização que deseja como dica, acessando: visualização > geral > dicas de ferramenta > selecionar a pagina nova gerada
+Drill-through - Para adicionar um detalhamento redirecionado para outra pagina view. É um filtro de uma view que se conecta com a view principal, para isso basta adicionar na view de detalhamento no campo Drill-through a coluna que deseja se ter um filtro. Ambas tem que ser dados em comum.
+Ocultação de pagina view - Tem como ocultar paginas na view para não ficar aparecendo no modo de leitura.
+Da para alterar o Estilo de tabela e adicionar elementos na célula de forma condicional como ícones EX: Caso um valor seja a baixo de 0 mostre o ícone tal, acima mostre o ícone X. Função predefinições de estilo e a outra fica em Elementos de célula respectivamente.
+- Para melhorar os níveis de visualização dos dados e facilidade de entendimento é possível fazer o uso de hierarquia dentro das tabelas. Exemplo de hierarquia: Categoria de produto > Subcategoria de produto > Produto.
+dessa forma se cria uma hierarquia, essa função está localizada dentro das relações entre as tabelas no power bi>
+A hierarquia no Power BI é uma estrutura criada para organizar e navegar os dados de forma hierárquica, permitindo que você analise informações em diferentes níveis de detalhe dentro de uma visualização. É amplamente usada para simplificar a análise de dados e fornecer insights mais granulares quando necessário.
+É possível tirar a interação de um elemento visual com outro elemento, para isso, basta selecionar o elemento inicial que não deseja que faça a alteração no outro que se quer tirar a interação, vai em formato na guia de cima e clica em editar interações e clica na bolinha com corte do meio no elemento visual que não é para interagir junto ao selecionado inicialmente para desligar assim a interação, para ativar é o mesmo caminho.
+Criação de marcadores/indicadores - Essa funcionalidade permite salvar o estado atual da view, dessa forma da para salvar uma view no seu atual estado para representações, para isso, ir no caminho exibição > indicadores e criar um novo indicador, mas lembre-se que ele salva o estado atual da aplicação. Cliacar em exibição para passar pelos indicadores chamados também de bookmarks
+Uma pratica boa também é definir a seleção que vai no mesmo caminho, exibição > seleção. Ela facilita o gerenciamento dos elementos visuais no relatório. Ela é especialmente útil para organizar e controlar a visibilidade dos objetos presentes na página.
+Publish Power bi service:
+Para publicar no serviço do Power bi basta clicar em publicar na pagina inicial, TEM QUE ESTÁ CONECTADO A UMA CONTA.
+Ao subir também, vira 2 arquivos independentes, um do dataset e outro do relatório/view.
+Da para cirar Marcadores também no Power bi servisse, acessar o relatório e clicar na bandeira do lado direito cima, também da para acessar os criados no Desktop Power bi.
+É possível convidar pessoas a acessar o relatório compartilhando-o.
+Também da para criar novos relatórios/views com base no dataset que subiu e ficou separado, para isso basta clicar no dataset no workspace e clicar em novo relatório.
+No Power bi services é possível criar um dashboard, que pode integrar entre sim vários relatórios diferentes, para isso basta criar o dashboard no wordspace e ir de relatório em relatório fixando os elementos de cada um. ELE NÃO APRESENTA ITERATIVIDADE ENTRE OS ELEMENTOS. CLICANDO NOS ELEMENTOS ADICONADOS NO DASHBOARD ELE REDESIGNA PARA O RELATORIO QUE O ELEMENTO CLICADO ESTÁ PRESENTE. Também da para alterar o titulo e o tempo de refresh de um elemento adicionado na dashboard. além também de criar um modelo de visualização para o ambiente mobile.
+Da para criar alertas de qualquer elemento com base no que se definir, se baseando em condição. exemplo sales caiu para R$7000, uma notificação de alerta é enviado e até por email. ALERTAS NÃO SÃO COMPARTILHADOS COM OUTRAS PESSOAS. Dashboard também da para compartilhar.
+Da para literalmente fazer perguntas na dashboard para o próprio modelo exemplo: Qual o total de vendas do produto x em gráfico de pizza. Ele vai retornar exatamente o que foi perguntado e pode ainda dar o fixar na novo gráfico de pizza na dashboard (TEM QUE SER EM INGLÊS). Por isso a importância de deixar bem feito as nomenclatura de colunas tipo de dados etc.
+OBS: Cada alteração feita no desktop tem que ser republicada
+Segunraça:
+Tem como criar Row-Level Security - RLS que uma segurança colocada no relatorio,  utilizado para controlar quais dados um usuário pode visualizar, com base em regras definidas no modelo de dados. EX: criei uma view de territorio USA cujo vai visualizar apenas dados do USA então os dados de outros países não será visíveis para essa pessoa que tiver essa definição de segurança em seu usuário. Deixa apenas o usuário ver os dados relacionados a aquela condição, até nas planilhas e modelo de relacionamento do power bi.
+OBS: OS nomes tem que está corretos nas condições.
+Para adicionar os integrantes na RLS tem que ser pelo serviço Power bi, onde é só selecionar o relatório clicar nos 3 pontos e segurança e definir os usuários com os respectivos cargos de segurança
+
+Boas praticas:
+Evitar relacionamentos muitos para muitos, definir uma tabela de data para os modelos, desligar a inteligência de data
+OBS: clicando na engrenagem ao lado das etapas realizadas, mostra a caixa de dialogo que ocorreu nessa etapa
+Informações relevantes
+Ao importar um dado para o Power BI aparece um visualizador mostrando as primeiras 200 linhas dos dados.
+Tem como importar diretórios com vários banco de dados no power bi ele mescla todos os arquivos de dados em uma única tabela se a estrutura for a mesma dos arquivos.
+
+France Germany United Kingdom
